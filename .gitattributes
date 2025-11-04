@@ -1,0 +1,7 @@
+# Set default behavior for text files
+* text=lf
+
+# If you want to keep certain files as-is (e.g. binaries or specific files)
+*.png -text
+*.jpg -text
+*.lock -text

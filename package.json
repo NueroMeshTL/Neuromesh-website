@@ -2,7 +2,7 @@
   "name": "neuromesh-site",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sumanyu-anand.github.io/neuromesh-site",
+  "homepage": "https://sumanyu-anand.github.io",
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@lottiefiles/react-lottie-player": "^3.6.0",

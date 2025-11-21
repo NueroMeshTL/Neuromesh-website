@@ -1,0 +1,31 @@
+# .github/workflows/ci-build.yml
+
+name: CI/CD Build & Deploy
+on:
+  push:
+    branches:
+      - main # Workflow runs when code is pushed to the 'main' branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          # Use the Node.js version your project requires (e.g., '18.x' or '20.x')
+          node-version: '20.x' 
+
+      - name: Install Dependencies
+        run: npm install # Or 'yarn install' if you use yarn
+
+      - name: Run Build with Secret Injection 🔑
+        run: npm run build # Or 'yarn build'
+        env:
+          # This line takes your GitHub Secret and makes it available to the build command
+          REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}
+
+  

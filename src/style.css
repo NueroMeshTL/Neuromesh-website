@@ -1,0 +1,724 @@
+/* Variables for Branding and Theming */
+:root {
+  --color-primary: #121A58; /* Deep Midnight Blue/Navy for main elements (buttons, footer, borders) */
+  --color-accent: #6C7DD9; /* Muted Bright Blue/Periwinkle for accents (hover, links, icons) */
+  --color-text-light: #333333; /* Dark text on light background (kept for light mode) */
+  --color-text-dark: #E0E0E0; /* Light text on dark background */
+  --color-background-light: #F9F9F9; /* Light mode background (kept) */
+  --color-background-dark: #0A0F3D; /* Very Dark, almost black, Blue background for modern feel */
+  --color-card-light: #FFFFFF; /* Light card background (kept) */
+  --color-card-dark: #19236B; /* New: Darker card background (Slightly Lighter Navy) */
+  --color-border-light: #151D5D; /* Medium Blue for light mode borders */
+  --color-border-dark: #151D5D; /* Darker Blue for dark mode borders */
+  --shadow-subtle: 0 6px 16px rgba(0, 0, 0, 0.2); /* SLIGHTLY DEEPER */
+  --shadow-deep: 0 12px 40px rgba(0, 0, 0, 0.5); /* STRONGER POP */
+  --border-radius: 12px;
+}
+
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-background-light);
+  color: var(--color-text-light);
+  overflow-x: hidden;
+  transition: background 0.5s ease, color 0.5s ease;
+  scroll-behavior: smooth;
+  line-height: 1.6;
+}
+/* Section Spacing */
+.section-divider {
+  padding: 5rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+h1, h2, h3 {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.2;
+  margin-top: 0;
+}
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #000000;
+  margin-bottom: 3rem;
+}
+body.dark-mode .section-subtitle {
+  color: #ffffff;
+}
+
+.section-subtitle1 {
+  font-size: 1.2rem;
+  color: #000000;
+  margin-bottom: 3rem;
+}
+/* Dark Mode Adjustments */
+body.dark-mode {
+  background-color: var(--color-background-dark);
+  color: var(--color-text-dark);
+}
+body.dark-mode .logo h1 span {
+  color: var(--color-accent);
+}
+body.dark-mode .nav-links.open {
+  background: rgba(10, 15, 61, 0.95); /* Mobile menu background matches new dark background */
+}
+
+/* Scroll Indicator Fix */
+.scroll-indicator {
+  position: fixed; /* Fix: Make it fixed */
+  top: 0;
+  left: 0;
+  height: 4px;
+  background-color: var(--color-accent);
+  z-index: 1001;
+  transition: width 0.1s linear;
+}
+
+/* Buttons and Links */
+.btn-primary, .btn-outline {
+  display: inline-block;
+  padding: 0.65rem 0.5rem; /* POLISH: SLIGHTLY INCREASED PADDING */
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Prevents text wrap */
+}
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border: 1px solid var(--color-primary);
+}
+.btn-primary:hover {
+  background-color: #19236B; /* Slightly lighter primary hover */
+  box-shadow: var(--shadow-deep); /* POLISH: STRONGER SHADOW ON HOVER */
+}
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+body.dark-mode .btn-outline {
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+.btn-outline:hover {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: var(--shadow-subtle);
+}
+body.dark-mode .btn-outline:hover {
+  background-color: var(--color-accent);
+  color: var(--color-background-dark); /* Dark text on light accent hover in dark mode */
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1rem 3rem; /* FIX 1: Increased padding for better centering offset on wide screens */
+  background: rgba(249, 249, 249, 0.95); /* MODERN: SLIGHTLY TRANSPARENT BACKGROUND */
+  backdrop-filter: blur(12px); /* MODERN: FLOATING GLASS EFFECT */
+  box-shadow: var(--shadow-subtle); /* MODERN: USING NEW SHADOW VARIABLE */
+  z-index: 1000;
+  border-bottom: 1px solid var(--color-border-light);
+  transition: background 0.3s ease, border-bottom 0.3s ease, backdrop-filter 0.3s ease;
+}
+body.dark-mode .navbar {
+  background: rgba(10, 15, 61, 0.8); /* MODERN: SLIGHTLY TRANSPARENT DARK BLUE BACKGROUND */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* DARK MODE SHADOW */
+  border-bottom: 1px solid var(--color-border-dark);
+}
+.logo h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: var(--color-primary);
+}
+body.dark-mode .logo h1 {
+  color: var(--color-text-dark);
+}
+.logo h1 span {
+  color: var(--color-accent);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.nav-links a {
+  color: var(--color-text-light);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+body.dark-mode .nav-links a {
+  color: var(--color-text-dark);
+}
+.nav-links a:hover {
+  color: var(--color-accent);
+}
+.toggle-theme {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-light);
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+body.dark-mode .toggle-theme {
+  color: var(--color-text-dark);
+}
+.toggle-theme:hover {
+  background: var(--color-border-light);
+}
+body.dark-mode .toggle-theme:hover {
+  background: var(--color-border-dark);
+}
+
+/* Style the Contact button link inside nav-links */
+.nav-links a.btn-primary {
+  margin-left: 0.5rem; 
+  padding: 0.4rem 1rem; 
+  line-height: 1.5; 
+  background-color: var(--color-accent);
+  color: var(--color-primary); /* Ensures button text is dark primary in light mode */
+  border: 1px solid var(--color-accent);
+}
+.nav-links a.btn-primary:hover {
+  background-color: #5567B0; /* Slightly lighter accent hover */
+  color: var(--color-primary);
+}
+body.dark-mode .nav-links a.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+  border: 1px solid var(--color-primary);
+}
+body.dark-mode .nav-links a.btn-primary:hover {
+  background-color: #19236B; /* Darker primary hover in dark mode */
+  color: var(--color-accent);
+}
+
+/* Gradient Mesh Background for Hero */
+.hero {
+  position: relative;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  overflow: hidden;
+  /* UPDATED GRADIENT TO MATCH DEEP BLUEISH THEME */
+  background: linear-gradient(135deg, #070B2E, #121A58, #02106f, #040f4d); 
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {background-position: 0% 50;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+/* Glass Card in Center */
+.hero-content {
+  max-width: 850px;
+  padding: 2rem 3rem;
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 25px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hero-content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+}
+
+/* Hero Text Styling (Kept light for visibility on dark gradient) */
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #FFFFFF; /* Changed to white */
+  line-height: 1.2;
+}
+.hero-content h1 span {
+  color: var(--color-accent); /* Kept accent color */
+  
+}
+.hero-content p {
+  font-size: 1.15rem;
+  color: #E0E0E0; /* Changed to light grey */
+  margin: 1.5rem 0;
+}
+
+/* CTA Buttons (No changes needed, uses variables) */
+.hero-cta-group {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero-cta-group .btn-primary,
+.hero-cta-group .btn-outline {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+.hero-cta-group .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+.hero-cta-group .btn-outline:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+}
+/* About Section Cards - Modern Styling (No changes needed, uses variables) */
+.mission-vision-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.mission-card {
+  background: var(--color-card-light);
+  padding: 2rem;
+  border-radius: 20px; /* More rounded */
+  box-shadow: var(--shadow-subtle); /* AESTHETICS: USING NEW SHADOW VARIABLE */
+  border-top: 5px solid var(--color-accent); /* Subtle top accent line */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+.mission-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-deep); /* AESTHETICS: STRONGER SHADOW ON HOVER */
+}
+body.dark-mode .mission-card {
+  background: var(--color-card-dark);
+  box-shadow: 0 0 0 1px var(--color-border-dark), var(--shadow-subtle); /* AESTHETICS: USING NEW SHADOW VARIABLE */
+  border-top: 5px solid var(--color-accent);
+}
+.mission-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-primary);
+}
+body.dark-mode .mission-card h3 {
+  color: var(--color-text-dark);
+}
+.mission-card ul {
+  list-style: none;
+  padding-left: 0;
+}
+.mission-card ul li {
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+.mission-card ul li::before {
+  content: '→'; 
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* Product/Services Section Cards - Modern Styling (No changes needed, uses variables) */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.product-card {
+  background: var(--color-card-light);
+  border-radius: 20px; /* More rounded */
+  padding: 2.5rem; /* More padding */
+  box-shadow: var(--shadow-subtle); /* AESTHETICS: USING NEW SHADOW VARIABLE */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  border: 1px solid var(--color-border-light); 
+  text-align: center; 
+  position: relative; /* Needed for absolute positioning of the badge */
+  
+  /* FIX 2: Button Alignment */
+  display: flex; 
+  flex-direction: column; 
+  justify-content: flex-start; /* ensures content starts from top */
+}
+body.dark-mode .product-card {
+  background: var(--color-card-dark);
+  box-shadow: 0 0 0 1px var(--color-border-dark), var(--shadow-subtle); /* AESTHETICS: USING NEW SHADOW VARIABLE */
+  border: none;
+}
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-deep); /* AESTHETICS: STRONGER SHADOW ON HOVER */
+}
+.product-card .icon-placeholder {
+  font-size: 3.5rem;
+  color: var(--color-accent);
+  display: block;
+  margin-bottom: 1rem;
+}
+.product-card h3 {
+  color: var(--color-primary);
+  font-size: 1.8rem; 
+  margin-bottom: 0.75rem;
+}
+body.dark-mode .product-card h3 {
+  color: var(--color-text-dark); 
+}
+.product-card p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1; /* FIX 2: Stretches the paragraph to push the button down */
+}
+.product-card .btn-outline {
+  width: 100%;
+  margin-top: auto; /* FIX 2: Pushes the button to the bottom */
+}
+
+/* Product Badges (New Styles) (No changes needed, uses variables) */
+.product-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--color-accent); 
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: 0 20px 0 10px; 
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.pilot-badge {
+  background-color: #4371c1; /* Green for 'available now' status */
+  color: white;
+}
+
+
+/* New section for autoscroll
+/* === Perfectly Seamless JS-controlled Carousel === */
+.carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+  padding: 2rem 0;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent 2%, black 10%, black 90%, transparent 98%);
+  -webkit-mask-image: linear-gradient(to right, transparent 2%, black 10%, black 90%, transparent 98%);
+}
+
+.carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  will-change: transform;
+}
+
+.product-card {
+  flex: 0 0 calc(33.333% - 1rem);
+  max-width: 340px;
+  min-width: 280px;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-deep);
+}
+
+/* Mobile adjustments (No changes needed) */
+@media (max-width: 768px) {
+  .product-card {
+    flex: 0 0 calc(33.333% - 0.8rem);
+    max-width: 240px;
+    min-width: 200px;
+    padding: 1rem;
+  }
+  .carousel-track {
+    gap: 1rem;
+  }
+}
+
+
+/* FAQ Section (No changes needed, uses variables) */
+.faq-item {
+  border: 1px solid var(--color-border-light);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: var(--color-card-light);
+}
+body.dark-mode .faq-item {
+  border-color: var(--color-border-dark);
+  background-color: var(--color-card-dark);
+}
+.faq-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  background-color: var(--color-card-light);
+}
+body.dark-mode .faq-header {
+  background-color: var(--color-card-dark);
+}
+.faq-icon {
+  font-size: 1.5rem;
+  color: var(--color-accent);
+  line-height: 1;
+}
+.faq-body {
+  max-height: 0;
+  transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+  padding: 0 1.5rem;
+}
+.faq-item.open .faq-body {
+  max-height: 200px; /* Adjust as needed */
+  padding: 0.5rem 1.5rem 1.5rem;
+  transition: max-height 0.4s ease-in, padding 0.3s ease-in;
+}
+.faq-body p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.faq-header:hover {
+  background: linear-gradient(90deg, var(--color-accent) 0%, transparent 100%);
+  color: var(--color-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .faq-header:hover {
+  color: var(--color-accent);
+}
+
+/* Contact/Footer */
+footer {
+  background-color: var(--color-primary);
+  color: white;
+  padding-top: 4rem;
+}
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+}
+.footer-info {
+  flex: 1;
+  max-width: 350px;
+}
+.footer-info h3 {
+  color: var(--color-accent);
+  margin-bottom: 1.5rem;
+}
+.footer-info p, .footer-info a {
+  color: #CCCCCC;
+  text-decoration: none;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.footer-info a:hover {
+  color: var(--color-accent);
+}
+.footer-links h4 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+.contact-form {
+  flex: 2;
+  max-width: 600px;
+}
+.contact-form h3 {
+  color: var(--color-accent);
+  margin-bottom: 1.5rem;
+}
+.contact-form input, 
+.contact-form textarea, 
+.contact-form select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+.contact-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.contact-form input::placeholder, 
+.contact-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* FIX 3: Dropdown text visibility */
+.contact-form select {
+    color: #CCCCCC; /* Default text color for the select box (placeholder) */
+}
+.contact-form select:valid {
+    color: #FFFFFF; /* Text color after a valid choice is made */
+}
+.contact-form select option {
+    background-color: var(--color-primary); /* Dark background for options */
+    color: white; /* Visible white text for options */
+}
+/* End FIX 3 */
+
+.contact-form button {
+  width: 100%;
+}
+.contact-form .btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-primary); /* Ensures button text is dark on accent background */
+  border: 1px solid var(--color-accent);
+}
+.contact-form .btn-primary:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  color: #f1f1f1;
+}
+#contact-status {
+  color: var(--color-accent); /* Used accent color for status */
+  margin-top: 1rem;
+  text-align: center;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+/* Scroll to Top Button */
+.scroll-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-deep);
+  cursor: pointer;
+  z-index: 999;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+
+/* Media Queries */
+@media (max-width: 900px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+}
+.hamburger {
+  /* Hides the button container on desktop */
+  display: none; 
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.8rem 1rem; /* Adjust padding back for mobile */
+  }
+  .nav-links {
+    position: fixed;
+    top: 5rem;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2rem;
+    background: rgba(10, 15, 61, 0.95); /* ADJUSTED FOR BLUR EFFECT */
+    backdrop-filter: blur(10px);
+    transition: right 0.3s ease-in-out;
+    border-left: 1px solid var(--color-border-light);
+  }
+  body.dark-mode .nav-links {
+    background: rgba(10, 15, 61, 0.95); /* Darker blue for mobile menu in dark mode */
+    border-left: 1px solid var(--color-border-dark);
+  }
+  .nav-links.open {
+    right: 0;
+  }
+  /* Show hamburger menu */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1001;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .hamburger .bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-primary); /* Primary color for hamburger */
+    transition: all 0.3s ease;
+    border-radius: 2px;
+  }
+  body.dark-mode .hamburger .bar {
+    background-color: var(--color-text-dark);
+  }
+  .hamburger.open .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.open .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.open .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* Adjust mobile nav link styles */
+  .nav-links a {
+    padding: 0.5rem 0;
+  }
+  .nav-links .toggle-theme {
+    margin: 1rem 0;
+  }
+  .nav-links a.btn-primary {
+    width: 100%;
+    margin-top: 1rem;
+    margin-left: 0;
+    text-align: center;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+  }
+  .footer-info {
+      max-width: 100%;
+  }
+}

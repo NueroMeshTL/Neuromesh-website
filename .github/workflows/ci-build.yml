@@ -26,6 +26,6 @@ jobs:
         run: npm run build # Or 'yarn build'
         env:
           # This line takes your GitHub Secret and makes it available to the build command
-          REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}
+          REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.EMAILJS_PUBLIC_KEY }}
 
   

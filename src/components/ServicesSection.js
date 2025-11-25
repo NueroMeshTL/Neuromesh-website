@@ -121,11 +121,11 @@
 //   );
 // }
 import React, { useRef, useEffect, useState } from 'react';
-import { Bot, Utensils, Car, Lightbulb, Camera, Globe, Sparkles } from 'lucide-react';
+import {Lightbulb, Camera, Globe, Sparkles } from 'lucide-react';
 
 export default function ServicesSection() {
   const trackRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
+  // const [isHovered, setIsHovered] = useState(false);
 
   // REVISED productList with general technology descriptions
   const productList = [

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, Zap, TrendingUp, Handshake } from 'lucide-react'; // Using Lucide for modern icons
+import { Zap } from 'lucide-react';
 
 export default function AboutSection() {
   return (

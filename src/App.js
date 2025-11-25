@@ -3,7 +3,7 @@ import './style.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 // Imports for Lucide Icons (Using placeholder for single file context)
-import { Sun, Moon, Menu, X, Mail, Globe, Linkedin } from 'lucide-react'; 
+import { Sun, Moon, Mail, Globe, Linkedin } from 'lucide-react';
 import emailjs from 'emailjs-com'; // <--- ADDED: EmailJS import
 
 // Import updated components

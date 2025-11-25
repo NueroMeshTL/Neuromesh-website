@@ -258,33 +258,131 @@
 //     </section>
 //   );
 // }
-import React from 'react';
-import { Zap } from 'lucide-react';
+import React, { useRef, useEffect } from 'react'; // REMOVED useState
+import { Lightbulb, Camera, Globe, Sparkles } from 'lucide-react';
 
-export default function AboutSection() {
+export default function ServicesSection() {
+  const trackRef = useRef(null);
+  // REMOVED: const [isHovered, setIsHovered] = useState(false); // No longer needed
+
+  // REVISED productList with general technology descriptions
+  const productList = [
+    { 
+      title: 'Generative AI Solutions', 
+      icon: Sparkles, // Using Sparkles for GenAI
+      desc: 'Developing cutting-edge applications using Large Language Models and Diffusion Models for content creation, intelligent automation, and personalized experiences. Launching Q4 2025.'
+    },
+    { 
+      title: 'Image Recognition & CV', 
+      icon: Camera, // Using Camera for Computer Vision/Image Recognition
+      desc: 'Advanced computer vision systems for real-time object detection, facial recognition, and comprehensive image and video content analysis for various industries. Available for Pilot Programs now.'
+    },
+    { 
+      title: 'AR/VR App Development', 
+      icon: Globe, // Using Globe for AR/VR/Spatial computing
+      desc: 'Building immersive augmented and virtual reality applications for training, visualization, and interactive consumer experiences across multiple platforms. Launching Q1 2026.'
+    },
+    { 
+      title: 'Future AI & Research', 
+      icon: Lightbulb, 
+      desc: 'Our innovation pipeline focuses on next-generation AI technologies, including quantum machine learning and neuro-symbolic AI. Get early access to new research programs.' 
+    }
+  ];
+
+  // Duplicate list multiple times for seamless looping
+  const loopList = [...productList, ...productList, ...productList, ...productList];
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    let pos = 0;
+    let baseSpeed = 0.25; // Normal scroll speed
+    let speed = baseSpeed;
+    let animationFrame;
+
+    const animate = () => {
+      pos -= speed;
+      // The track width needs to be calculated dynamically, but using scrollWidth / 2 is correct for looping 2 copies
+      if (Math.abs(pos) >= track.scrollWidth / 2) pos = 0; 
+      track.style.transform = `translateX(${pos}px)`;
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    const handleHover = (hovered) => {
+      if (hovered) {
+        // Smoothly slow down on hover
+        const slowDown = () => {
+          if (speed > 0.05) {
+            speed -= 0.01;
+            requestAnimationFrame(slowDown);
+          }
+        };
+        slowDown();
+      } else {
+        // Smoothly restore speed when not hovered
+        const speedUp = () => {
+          if (speed < baseSpeed) {
+            speed += 0.01;
+            requestAnimationFrame(speedUp);
+          }
+        };
+        speedUp();
+      }
+    };
+
+    animate();
+
+    const handleMouseEnter = () => handleHover(true);
+    const handleMouseLeave = () => handleHover(false);
+
+    track.addEventListener('mouseenter', handleMouseEnter);
+    track.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      // Ensure the *exact* same functions are removed
+      track.removeEventListener('mouseenter', handleMouseEnter);
+      track.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []); // Empty dependency array ensures this runs only once on mount
+
   return (
-    <section className="grid-section section-divider" id="about" data-aos="fade-right">
-      <h2 style={{ textAlign: 'center' }}>About Neuromesh AI LLP</h2>
-      <p className="section-subtitle" style={{ textAlign: 'center' }}>Pioneering AI-driven product development and smart solutions.</p>
-      
-      <div className="mission-vision-grid">
-        <div className="mission-card" data-aos="fade-right">
-          <h3><Target /> Our Mission</h3>
-          <p>To develop proprietary, user-centric AI applications that simplify complex tasks, enhance efficiency, and deliver measurable value across diverse industries, from consumer wellness (Food Scout) to urban infrastructure (Traffic AI).</p>
-          <p>We are a product-first IT firm, driven by innovation and a commitment to building scalable, impactful technology.</p>
-        </div>
+    <section className="services section-divider" id="apps" data-aos="fade-up">
+      <h2 style={{ textAlign: 'center' }}>Core AI Technology Focus</h2>
+      <p className="section-subtitle" style={{ textAlign: 'center' }}>
+        We specialize in developing full-stack solutions built on these key technological pillars.
+      </p>
 
-        <div className="mission-card" data-aos="fade-left">
-          <h3><Zap /> Our Expertise</h3>
-          <ul>
-            <li>Deep Learning & Computer Vision</li>
-            <li>Mobile & Web Application Development</li>
-
-            <li>Data Engineering & Analytics</li>
-          </ul>
-          <p>Our core strength lies in translating complex AI research into robust, commercially viable applications.</p>
+      <div 
+        className="carousel-wrapper"
+      >
+        <div 
+          className="carousel-track" 
+          ref={trackRef}
+          // REMOVED: onMouseEnter={() => setIsHovered(true)} 
+          // REMOVED: onMouseLeave={() => setIsHovered(false)}
+        >
+          {loopList.map((product, i) => (
+            <div className="product-card" key={i}>
+              {/* Conditional badge logic updated based on new product titles */}
+              {product.title !== 'Image Recognition & CV' && (
+                <span className="product-badge">
+                  {product.title === 'Future AI & Research' ? 'In Research' : 'Focus Area'}
+                </span>
+              )}
+              {product.title === 'Image Recognition & CV' && (
+                <span className="product-badge pilot-badge">Industry Solutions Available</span>
+              )}
+              <div className="icon-placeholder">
+                <product.icon size={48} />
+              </div>
+              <h3>{product.title}</h3>
+              <p>{product.desc}</p>
+              <a className="btn-outline" href="#contact">Inquire Now</a>
+            </div>
+          ))}
         </div>
-        
       </div>
     </section>
   );

@@ -5,15 +5,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <meta name="description" content="NeuroMesh Careers - Internship Program"/>
   <title>NeuroMesh Careers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: linear-gradient(135deg, #f8fafc 0%, #eef2ff 50%, #ecfeff 100%);
-      --card: #ffffff;
-      --text: #111827;
-      --muted: #4b5563;
-      --accent: #0f766e;
-      --accent-2: #0ea5e9;
-      --border: #d1d5db;
+      --color-bg: #f4f7ff;
+      --color-surface: #ffffff;
+      --color-primary: #121a58;
+      --color-border: #151d5d;
+      --color-text: #1f295c;
+      --color-muted: #4a548f;
+      --color-accent: #6c7dd9;
+      --color-highlight: #ffce6b;
     }
 
     * {
@@ -22,78 +24,97 @@
 
     body {
       margin: 0;
-      font-family: "Segoe UI", "Avenir Next", sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top right, rgba(108, 125, 217, 0.22), rgba(108, 125, 217, 0) 40%), var(--color-bg);
+      color: var(--color-text);
     }
 
     .page {
-      max-width: 980px;
+      max-width: 1080px;
       margin: 0 auto;
-      padding: 28px 18px 56px;
+      padding: 24px 18px 56px;
     }
 
     .topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 18px;
+      gap: 16px;
+      margin-bottom: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(21, 29, 93, 0.2);
+      padding: 12px 14px;
+      border-radius: 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: 0.3px;
     }
 
     .back-link {
       text-decoration: none;
-      color: #0f172a;
-      border: 1px solid #cbd5e1;
+      color: #e7ecff;
+      border: 1px solid var(--color-primary);
       border-radius: 999px;
-      padding: 8px 12px;
-      background: #ffffff;
+      padding: 8px 14px;
+      background: var(--color-primary);
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
+      transition: background 0.2s ease;
+    }
+
+    .back-link:hover {
+      background: #1b2574;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
-      letter-spacing: 0.2px;
+      font-size: clamp(1.9rem, 3vw, 2.7rem);
+      color: var(--color-primary);
+      letter-spacing: 0.3px;
     }
 
     .subtitle {
-      margin: 12px 0 0;
-      color: var(--muted);
-      max-width: 760px;
-      line-height: 1.65;
+      margin: 14px 0 0;
+      color: var(--color-muted);
+      max-width: 820px;
+      line-height: 1.75;
+      font-size: 1.03rem;
     }
 
     .status {
-      margin-top: 16px;
+      margin-top: 18px;
       display: inline-block;
-      padding: 7px 12px;
+      padding: 8px 14px;
       border-radius: 999px;
-      background: #ccfbf1;
-      border: 1px solid #99f6e4;
-      color: #115e59;
+      background: rgba(255, 206, 107, 0.35);
+      border: 1px solid rgba(242, 171, 28, 0.55);
+      color: #6f4a00;
       font-weight: 700;
       font-size: 13px;
     }
 
     .list {
-      margin-top: 22px;
+      margin-top: 24px;
       display: grid;
-      gap: 16px;
+      gap: 18px;
     }
 
     .job-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px;
-      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+      background: var(--color-surface);
+      border: 1px solid rgba(21, 29, 93, 0.18);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 14px 30px rgba(18, 26, 88, 0.12);
     }
 
     .job-card h2 {
-      margin: 0 0 8px;
-      font-size: 1.22rem;
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+      color: var(--color-primary);
     }
 
     .meta {
@@ -107,39 +128,39 @@
       font-size: 12px;
       font-weight: 700;
       border-radius: 999px;
-      padding: 6px 10px;
-      border: 1px solid #bae6fd;
-      background: #e0f2fe;
-      color: #075985;
+      padding: 6px 11px;
+      border: 1px solid rgba(108, 125, 217, 0.45);
+      background: rgba(108, 125, 217, 0.12);
+      color: #2c3a93;
     }
 
     .job-card p {
-      margin: 10px 0;
-      color: var(--muted);
-      line-height: 1.65;
+      margin: 12px 0;
+      color: var(--color-muted);
+      line-height: 1.76;
     }
 
     ul {
-      margin: 8px 0;
+      margin: 10px 0;
       padding-left: 20px;
-      color: #1f2937;
-      line-height: 1.65;
+      color: var(--color-text);
+      line-height: 1.72;
     }
 
-    .apply-box {
+    .quirk-box {
       margin-top: 12px;
-      padding: 12px;
-      border-radius: 10px;
-      background: #f0fdfa;
-      border: 1px solid #99f6e4;
-      color: #134e4a;
+      padding: 14px;
+      border-radius: 12px;
+      background: linear-gradient(90deg, rgba(108, 125, 217, 0.11), rgba(255, 206, 107, 0.2));
+      border: 1px solid rgba(108, 125, 217, 0.35);
+      color: #27327d;
       font-weight: 600;
     }
 
     .pipeline {
-      margin-top: 16px;
+      margin-top: 18px;
       background: #fff;
-      border: 1px dashed #94a3b8;
+      border: 1px dashed rgba(18, 26, 88, 0.45);
       border-radius: 14px;
       padding: 16px;
     }
@@ -151,14 +172,20 @@
 
     .pipeline p {
       margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
+      color: var(--color-muted);
+      line-height: 1.7;
+    }
+
+    .tiny-note {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: #5a6399;
     }
 
     @media (max-width: 640px) {
       .topbar {
-        align-items: flex-start;
         flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
@@ -166,13 +193,14 @@
 <body>
   <main class="page">
     <div class="topbar">
+      <div class="brand">NeuroMesh Careers</div>
       <a class="back-link" href="./index.html">Back to Home</a>
     </div>
 
     <h1>Careers at NeuroMesh</h1>
     <p class="subtitle">
-      We are building practical agentic AI systems and additional AI-powered platforms. This page hosts current openings.
-      Applications will be collected via a third-party hiring platform.
+      We build agentic AI systems that actually do work, not just write poetic demos. Think autonomous flows that reason,
+      call tools, recover from bad context, and still ship on deadline. This page lists open roles, while applications run via our third-party platform.
     </p>
     <div class="status">Open Now: Summer Internship Program</div>
 
@@ -186,22 +214,25 @@
           <span class="chip">India</span>
         </div>
         <p>
-          Join us to design and ship agentic AI workflows that reason, retrieve context, call tools, and automate business tasks.
-          This internship includes structured learning plus hands-on building of additional internal platforms.
+          You will help design and ship agentic workflows that read context, choose tools, call APIs, and automate real workflows
+          without falling apart when inputs get messy. The internship blends guided learning with hands-on product building for
+          additional internal platforms that we use in day-to-day operations.
         </p>
         <ul>
-          <li>Build and test multi-step AI agents for real use cases.</li>
-          <li>Work with Python, FastAPI, JavaScript/TypeScript, and GitHub workflows.</li>
-          <li>Use LLM tools such as OpenAI/Anthropic APIs, LangChain, and LangGraph.</li>
-          <li>Contribute to retrieval, evaluation, and observability for production quality.</li>
-          <li>Ship modules that support automation, analytics, and platform expansion.</li>
+          <li>Build and test multi-step AI agents for real business tasks, not toy prompts.</li>
+          <li>Work with Python, FastAPI, JavaScript/TypeScript, GitHub, and practical deployment pipelines.</li>
+          <li>Use OpenAI and Anthropic APIs with orchestration tools such as LangChain and LangGraph.</li>
+          <li>Implement retrieval, tracing, evaluations, and guardrails so outputs are reliable.</li>
+          <li>Ship modules that expand internal platforms for automation, analytics, and velocity.</li>
+          <li>Learn by building: every week includes mentor checkpoints, feedback loops, and shipped output.</li>
         </ul>
         <p>
-          Ideal for candidates who enjoy rapid learning, shipping real systems, and collaborating across product and engineering.
+          Ideal for people who like turning chaos into systems, ask sharp questions, and enjoy the moment when a flaky workflow becomes boringly reliable.
         </p>
-        <div class="apply-box">
+        <div class="quirk-box">
           Apply on our hiring portal (link to be added). This website only publishes role details.
         </div>
+        <p class="tiny-note">Bonus points if you have built side projects where bots call tools, maintain memory, or integrate with external apps.</p>
       </article>
     </section>
 

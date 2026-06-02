@@ -3,245 +3,387 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="description" content="NeuroMesh Careers - Internship Program"/>
-  <title>NeuroMesh Careers</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico"/>
+  <meta name="description" content="Careers at NeuroMesh — Build agents that ship. Summer internship open."/>
+  <link rel="apple-touch-icon" href="/logo192.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <title>Careers — NeuroMesh</title>
+  <!-- Load the exact same CSS bundle as the main app -->
+  <link href="/static/css/main.257aa9ea.css" rel="stylesheet">
   <style>
-    :root {
-      --color-bg: #f4f7ff;
-      --color-surface: #ffffff;
-      --color-primary: #121a58;
-      --color-border: #151d5d;
-      --color-text: #1f295c;
-      --color-muted: #4a548f;
-      --color-accent: #6c7dd9;
-      --color-highlight: #ffce6b;
-    }
+    /* ── Careers-specific overrides ── */
+    html { scroll-behavior: smooth; }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Inter", "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top right, rgba(108, 125, 217, 0.22), rgba(108, 125, 217, 0) 40%), var(--color-bg);
-      color: var(--color-text);
-    }
-
-    .page {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 24px 18px 56px;
-    }
-
-    .topbar {
+    .nm-hero {
+      height: auto;
+      min-height: 340px;
+      padding: 130px 1rem 80px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 24px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(21, 29, 93, 0.2);
-      padding: 12px 14px;
-      border-radius: 14px;
-      backdrop-filter: blur(8px);
+      justify-content: center;
     }
 
-    .brand {
-      font-weight: 700;
-      color: var(--color-primary);
-      letter-spacing: 0.3px;
+    .nm-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 72px 1.5rem 80px;
     }
 
-    .back-link {
-      text-decoration: none;
-      color: #e7ecff;
-      border: 1px solid var(--color-primary);
-      border-radius: 999px;
-      padding: 8px 14px;
-      background: var(--color-primary);
-      font-weight: 600;
-      font-size: 13px;
-      transition: background 0.2s ease;
+    .nm-section-header {
+      text-align: center;
+      margin-bottom: 52px;
     }
 
-    .back-link:hover {
-      background: #1b2574;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(1.9rem, 3vw, 2.7rem);
-      color: var(--color-primary);
-      letter-spacing: 0.3px;
-    }
-
-    .subtitle {
-      margin: 14px 0 0;
-      color: var(--color-muted);
-      max-width: 820px;
-      line-height: 1.75;
-      font-size: 1.03rem;
-    }
-
-    .status {
-      margin-top: 18px;
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255, 206, 107, 0.35);
-      border: 1px solid rgba(242, 171, 28, 0.55);
-      color: #6f4a00;
-      font-weight: 700;
-      font-size: 13px;
-    }
-
-    .list {
-      margin-top: 24px;
-      display: grid;
-      gap: 18px;
-    }
-
-    .job-card {
-      background: var(--color-surface);
-      border: 1px solid rgba(21, 29, 93, 0.18);
+    .nm-job-card {
+      background: var(--color-card-light, #fff);
       border-radius: 16px;
-      padding: 22px;
-      box-shadow: 0 14px 30px rgba(18, 26, 88, 0.12);
+      border-top: 5px solid #6c7dd9;
+      box-shadow: 0 8px 32px rgba(0,0,0,.12);
+      padding: 2.5rem 2.8rem;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    .job-card h2 {
-      margin: 0 0 10px;
-      font-size: 1.3rem;
-      color: var(--color-primary);
+    body.dark-mode .nm-job-card {
+      background: var(--color-card-dark, #19236b);
     }
 
-    .meta {
+    .nm-job-card h2 {
+      margin: 0 0 .6rem;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--color-primary, #121a58);
+    }
+
+    body.dark-mode .nm-job-card h2 { color: #e0e0e0; }
+
+    .nm-chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: .55rem;
+      margin-bottom: 1.4rem;
     }
 
-    .chip {
-      font-size: 12px;
+    .nm-chip {
+      font-size: .75rem;
       font-weight: 700;
+      letter-spacing: .4px;
+      padding: 5px 12px;
       border-radius: 999px;
-      padding: 6px 11px;
-      border: 1px solid rgba(108, 125, 217, 0.45);
-      background: rgba(108, 125, 217, 0.12);
+      background: rgba(108,125,217,.14);
+      border: 1px solid rgba(108,125,217,.45);
       color: #2c3a93;
     }
 
-    .job-card p {
-      margin: 12px 0;
-      color: var(--color-muted);
-      line-height: 1.76;
+    body.dark-mode .nm-chip { color: #b0bdf7; background: rgba(108,125,217,.2); }
+
+    .nm-chip.open {
+      background: rgba(52,199,89,.14);
+      border-color: rgba(52,199,89,.5);
+      color: #1a6b2e;
     }
 
-    ul {
-      margin: 10px 0;
-      padding-left: 20px;
-      color: var(--color-text);
-      line-height: 1.72;
+    body.dark-mode .nm-chip.open { color: #74d98a; }
+
+    .nm-job-card p {
+      line-height: 1.8;
+      color: var(--color-text-light, #333);
+      margin: 1rem 0;
     }
 
-    .quirk-box {
-      margin-top: 12px;
-      padding: 14px;
-      border-radius: 12px;
-      background: linear-gradient(90deg, rgba(108, 125, 217, 0.11), rgba(255, 206, 107, 0.2));
-      border: 1px solid rgba(108, 125, 217, 0.35);
-      color: #27327d;
+    body.dark-mode .nm-job-card p { color: #c8d0e8; }
+
+    .nm-job-card ul {
+      margin: .6rem 0 1rem 0;
+      padding-left: 1.4rem;
+      line-height: 1.8;
+      color: var(--color-text-light, #444);
+    }
+
+    body.dark-mode .nm-job-card ul { color: #c8d0e8; }
+
+    .nm-job-card li { margin-bottom: .4rem; }
+
+    .nm-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      color: #6c7dd9;
+      margin: 1.6rem 0 .5rem;
+    }
+
+    .nm-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: .4rem;
+    }
+
+    .nm-tag {
+      font-size: .75rem;
       font-weight: 600;
+      padding: 4px 11px;
+      border-radius: 8px;
+      background: rgba(18,26,88,.08);
+      color: #121a58;
+      border: 1px solid rgba(18,26,88,.18);
     }
 
-    .pipeline {
-      margin-top: 18px;
-      background: #fff;
-      border: 1px dashed rgba(18, 26, 88, 0.45);
-      border-radius: 14px;
-      padding: 16px;
+    body.dark-mode .nm-tag {
+      background: rgba(108,125,217,.18);
+      color: #b0bdf7;
+      border-color: rgba(108,125,217,.3);
     }
 
-    .pipeline h3 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-    }
-
-    .pipeline p {
-      margin: 0;
-      color: var(--color-muted);
+    .nm-note {
+      margin-top: 1.8rem;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      background: rgba(108,125,217,.08);
+      border: 1px solid rgba(108,125,217,.3);
+      font-size: .9rem;
+      color: #4a548f;
       line-height: 1.7;
     }
 
-    .tiny-note {
-      margin-top: 14px;
-      font-size: 0.9rem;
-      color: #5a6399;
+    body.dark-mode .nm-note { background: rgba(108,125,217,.12); color: #9faaf0; }
+
+    .footer-content { flex-wrap: wrap; }
+
+    /* ── Mobile nav ── */
+    .nm-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3,7,28,.55);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+      z-index: 998;
+    }
+    .nm-overlay.active { opacity: 1; pointer-events: auto; }
+    body.nm-open { overflow: hidden; }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        right: -110% !important;
+        opacity: 0;
+        transition: right .38s cubic-bezier(.22,1,.36,1), opacity .25s ease !important;
+        z-index: 1002;
+      }
+      .nav-links.open { right: 0 !important; opacity: 1; }
+      .nav-links a { color: #c7d0ff !important; font-size: 1.05rem; }
+      .nav-links a:hover { color: #fff !important; }
+      .nav-links a.btn-primary { color: #121a58 !important; }
+      .hamburger .bar {
+        transition: transform .32s ease, opacity .22s ease, background-color .22s ease !important;
+      }
     }
 
     @media (max-width: 640px) {
-      .topbar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      .nm-job-card { padding: 1.6rem 1.2rem; }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <div class="topbar">
-      <div class="brand">NeuroMesh Careers</div>
-      <a class="back-link" href="./index.html">Back to Home</a>
+
+  <!-- ── Navbar: exact same HTML classes as React renders ── -->
+  <nav class="navbar" id="nm-navbar">
+    <div class="logo">
+      <a href="/" style="text-decoration:none">
+        <h1>Neuro<span>Mesh</span></h1>
+      </a>
+    </div>
+    <div class="nav-links" id="nm-nav">
+      <a href="/">Home</a>
+      <a href="/#about">About</a>
+      <a href="/#apps">Apps</a>
+      <a href="/#solutions">Solutions</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#contact" class="btn-primary">Contact</a>
+      <a href="/careers.html" style="font-weight:700;text-decoration:underline;text-underline-offset:3px">Careers</a>
+      <button class="toggle-theme" id="nm-theme" aria-label="Toggle dark mode" title="Toggle theme">
+        <span id="nm-theme-icon">&#x1F319;</span>
+      </button>
+    </div>
+    <button class="hamburger" id="nm-ham" aria-label="Toggle menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </nav>
+
+  <!-- ── Hero (reuses .hero gradient animation + .hero-content glassmorphism) ── -->
+  <section class="hero nm-hero">
+    <div class="hero-content" style="text-align:center;max-width:780px">
+      <h1>We&#x2019;re building the future of <span>agentic AI.</span><br>Come ship it with us.</h1>
+      <p>
+        NeuroMesh builds AI agents that actually finish work &#x2014; not hallucinate an answer, shrug, and call it a day.
+        If that sounds like a problem worth solving, read on.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Open roles ── -->
+  <section class="nm-section">
+    <div class="nm-section-header">
+      <h2 class="section-divider">Open Roles</h2>
+      <p class="section-subtitle" style="color:inherit;margin-top:.6rem">
+        One role, zero fluff. Here&#x2019;s exactly what it is.
+      </p>
     </div>
 
-    <h1>Careers at NeuroMesh</h1>
-    <p class="subtitle">
-      We build agentic AI systems that actually do work, not just write poetic demos. Think autonomous flows that reason,
-      call tools, recover from bad context, and still ship on deadline. This page lists open roles, while applications run via our third-party platform.
-    </p>
-    <div class="status">Open Now: Summer Internship Program</div>
+    <div class="nm-job-card">
+      <h2>Agentic AI Engineer Intern</h2>
 
-    <section class="list" aria-label="Open roles list">
-      <article class="job-card">
-        <h2>Agentic AI Engineer Intern (Summer, 2 Months)</h2>
-        <div class="meta">
-          <span class="chip">Internship</span>
-          <span class="chip">2 Months</span>
-          <span class="chip">Summer 2026</span>
-          <span class="chip">India</span>
-        </div>
-        <p>
-          You will help design and ship agentic workflows that read context, choose tools, call APIs, and automate real workflows
-          without falling apart when inputs get messy. The internship blends guided learning with hands-on product building for
-          additional internal platforms that we use in day-to-day operations.
-        </p>
-        <ul>
-          <li>Build and test multi-step AI agents for real business tasks, not toy prompts.</li>
-          <li>Work with Python, FastAPI, JavaScript/TypeScript, GitHub, and practical deployment pipelines.</li>
-          <li>Use OpenAI and Anthropic APIs with orchestration tools such as LangChain and LangGraph.</li>
-          <li>Implement retrieval, tracing, evaluations, and guardrails so outputs are reliable.</li>
-          <li>Ship modules that expand internal platforms for automation, analytics, and velocity.</li>
-          <li>Learn by building: every week includes mentor checkpoints, feedback loops, and shipped output.</li>
-        </ul>
-        <p>
-          Ideal for people who like turning chaos into systems, ask sharp questions, and enjoy the moment when a flaky workflow becomes boringly reliable.
-        </p>
-        <div class="quirk-box">
-          Apply on our hiring portal (link to be added). This website only publishes role details.
-        </div>
-        <p class="tiny-note">Bonus points if you have built side projects where bots call tools, maintain memory, or integrate with external apps.</p>
-      </article>
-    </section>
+      <div class="nm-chips">
+        <span class="nm-chip open">&#x25CF; Applications Open</span>
+        <span class="nm-chip">Summer 2026</span>
+        <span class="nm-chip">2 Months</span>
+        <span class="nm-chip">India &#xB7; Remote-first</span>
+        <span class="nm-chip">Internship</span>
+      </div>
 
-    <section class="pipeline" aria-label="Future openings">
-      <h3>Upcoming Openings</h3>
       <p>
-        More roles will be posted here as they open, including full-time positions in agentic AI engineering and platform development.
+        <strong>The short version:</strong> you&#x2019;ll spend eight weeks building AI agents that reason, call tools, manage memory,
+        and actually complete tasks &#x2014; not demo bots that look impressive for thirty seconds before hallucinating their
+        way into a stack trace. Real systems. Real prod. Real accountability.
       </p>
-    </section>
-  </main>
+
+      <p>
+        Beyond the core agent work, you&#x2019;ll contribute to internal platforms we use day-to-day: automation pipelines,
+        analytics tooling, operational dashboards. Nothing gets shelved. If you build it, it runs.
+      </p>
+
+      <div class="nm-label">What you&#x2019;ll actually build</div>
+      <ul>
+        <li>Multi-step agentic pipelines that plan, execute, and self-correct across dynamic inputs</li>
+        <li>Tool integrations: REST APIs, databases, document parsers, web retrieval, file systems</li>
+        <li>Memory architectures &#x2014; vector stores for retrieval, session context, and long-term state</li>
+        <li>Evaluation harnesses so you know when your agent is right and when it&#x2019;s confidently wrong</li>
+        <li>Guardrails and fallback logic so agents fail gracefully instead of catastrophically</li>
+        <li>Additional internal platform modules in automation, analytics, and operational tooling</li>
+      </ul>
+
+      <div class="nm-label">Stack you&#x2019;ll touch weekly</div>
+      <div class="nm-stack">
+        <span class="nm-tag">Python</span>
+        <span class="nm-tag">FastAPI</span>
+        <span class="nm-tag">LangChain</span>
+        <span class="nm-tag">LangGraph</span>
+        <span class="nm-tag">OpenAI API</span>
+        <span class="nm-tag">Anthropic API</span>
+        <span class="nm-tag">PostgreSQL</span>
+        <span class="nm-tag">Qdrant / Chroma</span>
+        <span class="nm-tag">Docker</span>
+        <span class="nm-tag">GitHub Actions</span>
+        <span class="nm-tag">TypeScript / JS</span>
+      </div>
+
+      <div class="nm-label">Weekly learning track (included)</div>
+      <ul>
+        <li>Agent design patterns: ReAct, plan-and-execute, reflection loops, multi-agent coordination</li>
+        <li>Prompt engineering that survives contact with real users</li>
+        <li>Evaluation strategies: LLM-as-judge, semantic similarity, task-completion benchmarks</li>
+        <li>System design for AI products: latency, reliability, cost tradeoffs</li>
+        <li>Mentor checkpoints every week &#x2014; not once at the start and once at the end</li>
+      </ul>
+
+      <div class="nm-label">Who we&#x2019;re looking for</div>
+      <p>
+        Someone who ships first and polishes second. You ask why before you ask how. You&#x2019;ve debugged a broken
+        function call at odd hours and found it satisfying. You think building AI systems that are actually
+        reliable is a harder and more interesting problem than building ones that are merely impressive.
+      </p>
+      <p>
+        Prior experience with agents, LLMs, or tool orchestration is a bonus &#x2014; not a requirement. We care more
+        about how you think than what&#x2019;s already on your resume.
+      </p>
+
+      <div class="nm-note">
+        <strong>How to apply:</strong> Applications are handled through our hiring portal (link coming shortly).
+        This page is for role details only. In the meantime, feel free to reach out via the
+        <a href="/#contact" style="color:#6c7dd9;font-weight:600">contact form</a> with a note about yourself.
+        <br><br>
+        <em>Bonus points if you&#x2019;ve built something &#x2014; anything &#x2014; where an AI calls a function, reads a file, talks
+        to an API, or maintains state across turns. Show us what you made.</em>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-info">
+        <h3>NeuroMesh</h3>
+        <p>Building the next generation<br>of agentic AI applications.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Company</h4>
+        <a href="/#about">About</a>
+        <a href="/#apps">Apps</a>
+        <a href="/#solutions">Solutions</a>
+        <a href="/careers.html">Careers</a>
+      </div>
+      <div class="footer-links">
+        <h4>More</h4>
+        <a href="/#faq">FAQ</a>
+        <a href="/#contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&#xA9; 2026 NeuroMesh. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      /* ── Dark mode: sync with main app's localStorage ── */
+      try {
+        var s = localStorage.getItem('theme') || localStorage.getItem('darkMode');
+        if (s === 'dark' || s === 'true') {
+          document.body.classList.add('dark-mode');
+          document.getElementById('nm-theme-icon').textContent = '\u2600\uFE0F';
+        }
+      } catch (e) {}
+
+      document.getElementById('nm-theme').addEventListener('click', function () {
+        var dark = document.body.classList.toggle('dark-mode');
+        document.getElementById('nm-theme-icon').textContent = dark ? '\u2600\uFE0F' : '\uD83C\uDF19';
+        try {
+          localStorage.setItem('theme', dark ? 'dark' : 'light');
+          localStorage.setItem('darkMode', dark ? 'true' : 'false');
+        } catch (e) {}
+      });
+
+      /* ── Mobile menu ── */
+      var overlay = document.createElement('div');
+      overlay.className = 'nm-overlay';
+      document.body.appendChild(overlay);
+
+      var ham = document.getElementById('nm-ham');
+      var nav = document.getElementById('nm-nav');
+
+      function close() {
+        nav.classList.remove('open');
+        ham.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.classList.remove('nm-open');
+      }
+
+      ham.addEventListener('click', function () {
+        var o = nav.classList.toggle('open');
+        ham.classList.toggle('open', o);
+        overlay.classList.toggle('active', o);
+        document.body.classList.toggle('nm-open', o);
+      });
+
+      overlay.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+      nav.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+    })();
+  </script>
 </body>
 </html>

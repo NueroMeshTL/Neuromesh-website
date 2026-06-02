@@ -13,55 +13,59 @@
 	<script defer="defer" src="/static/js/main.c9f7a089.js"></script>
 	<link href="/static/css/main.257aa9ea.css" rel="stylesheet">
 	<style>
+		/* ── Mobile menu overlay ── */
 		.menu-overlay {
 			position: fixed;
 			inset: 0;
-			background: rgba(3, 7, 28, 0.5);
+			background: rgba(3, 7, 28, 0.55);
+			backdrop-filter: blur(3px);
+			-webkit-backdrop-filter: blur(3px);
 			opacity: 0;
 			pointer-events: none;
-			transition: opacity 0.28s ease;
+			transition: opacity 0.3s ease;
 			z-index: 998;
 		}
+		.menu-overlay.active { opacity: 1; pointer-events: auto; }
+		body.menu-open { overflow: hidden; }
 
-		.menu-overlay.active {
-			opacity: 1;
-			pointer-events: auto;
-		}
-
-		body.menu-open {
-			overflow: hidden;
-		}
-
-		@media (max-width: 768px) {
+		@media (max-width: 900px) {
 			.nav-links {
-				right: -110%;
+				right: -110% !important;
 				opacity: 0;
-				transform: translateX(28px);
-				transition: right 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease, transform 0.3s ease;
+				transition: right 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+				            opacity 0.25s ease !important;
 				z-index: 1002;
 			}
-
 			.nav-links.open {
-				right: 0;
+				right: 0 !important;
 				opacity: 1;
-				transform: translateX(0);
-				background: rgba(10, 15, 61, 0.97);
 			}
-
 			.nav-links a {
-				color: #edf2ff !important;
-				font-size: 1.03rem;
-				letter-spacing: 0.2px;
+				color: #c7d0ff !important;
+				font-size: 1.05rem;
 			}
-
-			.nav-links a:hover {
-				color: #9fb0ff !important;
+			.nav-links a:hover { color: #ffffff !important; }
+			.nav-links a.btn-primary {
+				color: #121a58 !important;
 			}
-
 			.hamburger .bar {
-				transition: transform 0.32s ease, opacity 0.22s ease, background-color 0.22s ease;
+				transition: transform 0.32s ease, opacity 0.22s ease,
+				            background-color 0.22s ease !important;
 			}
 		}
+
+		/* ── Agentic workflow SVG banner ── */
+		.nm-workflow {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 0;
+			opacity: 0;
+			animation: nm-fadein 1.8s ease 0.6s forwards;
+		}
+		@keyframes nm-fadein { to { opacity: 1; } }
 	</style>
 </head>
 <body>
@@ -70,81 +74,211 @@
 
 	<script>
 		(function () {
+
+			/* ── 1. Mobile menu overlay ── */
 			var overlay = document.createElement("div");
 			overlay.className = "menu-overlay";
 			document.body.appendChild(overlay);
 
 			function setupHeader() {
 				var navLinks = document.querySelector(".nav-links");
-				if (!navLinks) {
-					return false;
-				}
+				if (!navLinks) return false;
 
-				if (!navLinks.querySelector('a[href="/careers.html"], a[href="./careers.html"], a[href="careers.html"]')) {
-					var ref = navLinks.querySelector("a:last-of-type") || navLinks.querySelector("a");
-					if (ref) {
-						var careersLink = ref.cloneNode(true);
-						careersLink.href = "./careers.html";
-						careersLink.textContent = "Careers";
-						careersLink.setAttribute("aria-label", "Careers");
-						navLinks.appendChild(careersLink);
-					}
+				/* Add Careers link as plain <a> so it inherits .nav-links a style only */
+				if (!navLinks.querySelector('[href$="careers.html"]')) {
+					var c = document.createElement("a");
+					c.href = "/careers.html";
+					c.textContent = "Careers";
+					var btn = navLinks.querySelector(".btn-primary");
+					if (btn) navLinks.insertBefore(c, btn);
+					else navLinks.appendChild(c);
 				}
 
 				var hamburger = document.querySelector(".hamburger");
-				function syncMenuState() {
-					var isOpen = navLinks.classList.contains("open");
-					overlay.classList.toggle("active", isOpen);
-					document.body.classList.toggle("menu-open", isOpen);
+				function syncOverlay() {
+					var open = navLinks.classList.contains("open");
+					overlay.classList.toggle("active", open);
+					document.body.classList.toggle("menu-open", open);
 				}
+				syncOverlay();
+				new MutationObserver(syncOverlay)
+					.observe(navLinks, { attributes: true, attributeFilter: ["class"] });
 
-				syncMenuState();
-
-				var classObserver = new MutationObserver(syncMenuState);
-				classObserver.observe(navLinks, { attributes: true, attributeFilter: ["class"] });
-
-				overlay.addEventListener("click", function () {
+				function closeMenu() {
 					navLinks.classList.remove("open");
-					if (hamburger) {
-						hamburger.classList.remove("open");
-					}
-					syncMenuState();
+					if (hamburger) hamburger.classList.remove("open");
+					syncOverlay();
+				}
+				overlay.addEventListener("click", closeMenu);
+				document.addEventListener("keydown", function (e) {
+					if (e.key === "Escape") closeMenu();
 				});
-
-				document.addEventListener("keydown", function (event) {
-					if (event.key === "Escape") {
-						navLinks.classList.remove("open");
-						if (hamburger) {
-							hamburger.classList.remove("open");
-						}
-						syncMenuState();
-					}
+				navLinks.querySelectorAll("a").forEach(function (a) {
+					a.addEventListener("click", closeMenu);
 				});
-
-				var links = navLinks.querySelectorAll("a");
-				links.forEach(function (link) {
-					link.addEventListener("click", function () {
-						navLinks.classList.remove("open");
-						if (hamburger) {
-							hamburger.classList.remove("open");
-						}
-						syncMenuState();
-					});
-				});
-
 				return true;
 			}
 
-			if (!setupHeader()) {
-				var attempts = 0;
-				var observer = new MutationObserver(function () {
-					attempts += 1;
-					if (setupHeader() || attempts > 60) {
-						observer.disconnect();
-					}
+			var headerDone = false;
+			var workflowDone = false;
+
+			/* ── 2. Animated agentic workflow SVG behind hero heading ── */
+			function buildWorkflowSVG() {
+				var NS = "http://www.w3.org/2000/svg";
+				function el(tag, attrs) {
+					var e = document.createElementNS(NS, tag);
+					Object.keys(attrs).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+					return e;
+				}
+				function txt(parent, x, y, content, fill, size, weight) {
+					var t = el("text", { x: x, y: y, "text-anchor": "middle", fill: fill,
+						"font-family": "Inter,sans-serif", "font-size": size,
+						"font-weight": weight || "400" });
+					t.textContent = content;
+					parent.appendChild(t);
+				}
+				function pulse(parent, cx, cy, r, dur, begin) {
+					var c = el("circle", { cx: cx, cy: cy, r: r, fill: "none",
+						stroke: "#6c7dd9", "stroke-width": "1", opacity: "0.4" });
+					var ar = el("animate", { attributeName: "r", values: r + ";" + (r + 14) + ";" + r,
+						dur: dur, begin: begin || "0s", repeatCount: "indefinite", calcMode: "ease" });
+					var ao = el("animate", { attributeName: "opacity", values: "0.4;0.05;0.4",
+						dur: dur, begin: begin || "0s", repeatCount: "indefinite", calcMode: "ease" });
+					c.appendChild(ar); c.appendChild(ao); parent.appendChild(c);
+				}
+				function packet(parent, path, dur, begin, r, op) {
+					var c = el("circle", { r: r || "4", fill: "#6c7dd9", opacity: op || "0.85", filter: "url(#nm-glow)" });
+					var am = el("animateMotion", { dur: dur, begin: begin || "0s",
+						repeatCount: "indefinite", calcMode: "linear", path: path });
+					c.appendChild(am); parent.appendChild(c);
+				}
+
+				var svg = el("svg", {
+					class: "nm-workflow",
+					viewBox: "0 0 1200 480",
+					preserveAspectRatio: "xMidYMid slice",
+					"aria-hidden": "true",
+					xmlns: NS
 				});
-				observer.observe(document.body, { childList: true, subtree: true });
+
+				/* ── Defs: glow filter ── */
+				var defs = el("defs", {});
+				var flt = el("filter", { id: "nm-glow", x: "-40%", y: "-40%", width: "180%", height: "180%" });
+				var blur = el("feGaussianBlur", { in: "SourceGraphic", stdDeviation: "3.5", result: "b" });
+				var merge = el("feMerge", {});
+				merge.appendChild(el("feMergeNode", { in: "b" }));
+				merge.appendChild(el("feMergeNode", { in: "SourceGraphic" }));
+				flt.appendChild(blur); flt.appendChild(merge); defs.appendChild(flt);
+				svg.appendChild(defs);
+
+				/*
+				 * Layout (viewBox 1200×480):
+				 *  INPUT(115,220) → AGENT(330,220) → TOOL(565,220) → OUTPUT(800,220)
+				 *                                                          ↓
+				 *                    AGENT ← ─ ─ MEMORY(565,390) ← ─ ─ ─┘
+				 */
+				var P = {
+					p1: "M175,220 L278,220",                            /* Input → Agent   */
+					p2: "M382,220 L510,220",                            /* Agent → Tool    */
+					p3: "M620,220 L745,220",                            /* Tool → Output   */
+					p4: "M800,248 C800,390 620,390 620,390",            /* Output → Memory */
+					p5: "M510,390 C330,390 330,272 330,272"             /* Memory → Agent  */
+				};
+
+				/* Static dashed connection lines */
+				Object.values(P).forEach(function (d) {
+					svg.appendChild(el("path", { d: d, stroke: "#6c7dd9", "stroke-width": "1.5",
+						"stroke-dasharray": "7,5", fill: "none", opacity: "0.45" }));
+				});
+
+				/* Flowing highlight dots on each path */
+				var flows = [
+					{ d: P.p1, dur: "2s",   beg: "0s" },
+					{ d: P.p1, dur: "2s",   beg: "-0.7s" },
+					{ d: P.p2, dur: "1.9s", beg: "-0.4s" },
+					{ d: P.p3, dur: "1.8s", beg: "-0.9s" },
+					{ d: P.p3, dur: "1.8s", beg: "-0.3s" },
+					{ d: P.p4, dur: "2.6s", beg: "-1.1s",  r: "3.5" },
+					{ d: P.p5, dur: "2.4s", beg: "-2s",    r: "3.5" }
+				];
+				flows.forEach(function (f) { packet(svg, f.d, f.dur, f.beg, f.r); });
+
+				/* ── Node: INPUT ── */
+				var gIn = el("g", { opacity: "0.88" });
+				gIn.appendChild(el("rect", { x:"55", y:"193", width:"120", height:"54", rx:"11",
+					fill:"#060c2e", stroke:"#6c7dd9", "stroke-width":"1.5", filter:"url(#nm-glow)" }));
+				txt(gIn,115,214,"INPUT","#6c7dd9","11","700");
+				txt(gIn,115,230,"context · query","#7a8fc4","9");
+				svg.appendChild(gIn);
+
+				/* ── Node: AGENT (circle, central brain) ── */
+				var gAg = el("g", { filter:"url(#nm-glow)" });
+				pulse(gAg, 330, 220, 62, "3s", "0s");
+				pulse(gAg, 330, 220, 52, "2s", "-0.5s");
+				gAg.appendChild(el("circle", { cx:"330", cy:"220", r:"48",
+					fill:"#060c2e", stroke:"#6c7dd9", "stroke-width":"2", opacity:"0.92" }));
+				txt(gAg,330,215,"AGENT","#6c7dd9","13","700");
+				txt(gAg,330,231,"reasons · plans","#7a8fc4","9");
+				svg.appendChild(gAg);
+
+				/* ── Node: TOOL CALL ── */
+				var gTl = el("g", { opacity:"0.88" });
+				gTl.appendChild(el("rect", { x:"510", y:"188", width:"110", height:"64", rx:"11",
+					fill:"#060c2e", stroke:"#6c7dd9", "stroke-width":"1.5", filter:"url(#nm-glow)" }));
+				txt(gTl,565,209,"TOOL CALL","#6c7dd9","11","700");
+				txt(gTl,565,224,"API · code · DB","#7a8fc4","9");
+				txt(gTl,565,237,"search · retrieval","#7a8fc4","9");
+				svg.appendChild(gTl);
+
+				/* ── Node: OUTPUT ── */
+				var gOut = el("g", { opacity:"0.88" });
+				gOut.appendChild(el("rect", { x:"745", y:"193", width:"110", height:"54", rx:"11",
+					fill:"#060c2e", stroke:"#6c7dd9", "stroke-width":"1.5", filter:"url(#nm-glow)" }));
+				pulse(gOut, 800, 220, 40, "3.5s", "-1s");
+				txt(gOut,800,213,"OUTPUT","#6c7dd9","11","700");
+				txt(gOut,800,230,"action · response","#7a8fc4","9");
+				svg.appendChild(gOut);
+
+				/* ── Node: MEMORY (feedback loop) ── */
+				var gMem = el("g", { opacity:"0.88" });
+				gMem.appendChild(el("rect", { x:"500", y:"362", width:"130", height:"54", rx:"11",
+					fill:"#060c2e", stroke:"#6c7dd9", "stroke-width":"1.5", filter:"url(#nm-glow)" }));
+				txt(gMem,565,383,"MEMORY","#6c7dd9","11","700");
+				txt(gMem,565,399,"vectors · state · ctx","#7a8fc4","9");
+				svg.appendChild(gMem);
+
+				/* ── Ambient floating particles ── */
+				[[270,165,7],[380,155,5],[330,122,4],[430,175,6],[220,185,6],[560,155,7]]
+					.forEach(function (p, i) {
+						var dot = el("circle", { cx:p[0], cy:p[1], r:"2", fill:"#6c7dd9", opacity:"0.5" });
+						var d = 5 + i * 1.3;
+						var beg = "-" + (i * 0.9) + "s";
+						dot.appendChild(el("animate", { attributeName:"cy",
+							values: p[1]+";"+(p[1]-12)+";"+p[1], dur:d+"s", begin:beg, repeatCount:"indefinite" }));
+						dot.appendChild(el("animate", { attributeName:"opacity",
+							values:"0.5;1;0.5", dur:d+"s", begin:beg, repeatCount:"indefinite" }));
+						svg.appendChild(dot);
+					});
+
+				return svg;
 			}
+
+			function injectWorkflow() {
+				var hero = document.querySelector(".hero");
+				if (!hero || hero.querySelector(".nm-workflow")) return false;
+				hero.insertBefore(buildWorkflowSVG(), hero.firstChild);
+				return true;
+			}
+
+			/* ── Observer: wait for React to render both ── */
+			var obs = new MutationObserver(function () {
+				if (!headerDone) headerDone = setupHeader();
+				if (!workflowDone) workflowDone = injectWorkflow();
+				if (headerDone && workflowDone) obs.disconnect();
+			});
+			obs.observe(document.body, { childList: true, subtree: true });
+			headerDone = setupHeader();
+			workflowDone = injectWorkflow();
 		})();
 	</script>
 </body>

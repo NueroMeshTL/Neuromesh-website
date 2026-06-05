@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8"/>
-	<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
-	<link rel="icon" href="/favicon.ico" sizes="any"/>
+	<link rel="icon" href="/favicon.png" type="image/png"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 	<meta name="theme-color" content="#000000"/>
 	<meta name="description" content="Web site created using create-react-app"/>
@@ -43,7 +42,7 @@
 			}
 			.nav-links a {
 				color: #c7d0ff !important;
-				font-size: 1.05rem;
+				font-size: 1.35rem;
 			}
 			.nav-links a:hover { color: #ffffff !important; }
 			.nav-links a.btn-primary {
@@ -161,6 +160,17 @@
 			margin-top: .9rem;
 			padding-bottom: .5rem;
 		}
+		/* Hide theme toggle */
+		.toggle-theme { display: none !important; }
+		/* Fix icon-above-text in contact info links */
+		#contact a {
+			display: inline-flex !important;
+			flex-direction: row !important;
+			align-items: center !important;
+			gap: 8px !important;
+			flex-wrap: nowrap !important;
+		}
+		#contact a svg, #contact a img { flex-shrink: 0; }
 	</style>
 </head>
 <body>
@@ -275,15 +285,29 @@
 				return true;
 			}
 
-			/* ── Observer: wait for React to render both ── */
+			/* ── 3. Remove "Built with" footer line ── */
+			function cleanupUI() {
+				var fb = document.querySelector('.footer-bottom');
+				if (!fb) return false;
+				fb.querySelectorAll('p, span, small, div').forEach(function(el) {
+					if (!el.children.length && el.textContent.indexOf('Built with') !== -1)
+						el.style.display = 'none';
+				});
+				return true;
+			}
+
+			var cleanupDone = false;
+			/* ── Observer: wait for React to render ── */
 			var obs = new MutationObserver(function () {
-				if (!headerDone) headerDone = setupHeader();
+				if (!headerDone)  headerDone  = setupHeader();
 				if (!workflowDone) workflowDone = injectWorkflow();
-				if (headerDone && workflowDone) obs.disconnect();
+				if (!cleanupDone)  cleanupDone  = cleanupUI();
+				if (headerDone && workflowDone && cleanupDone) obs.disconnect();
 			});
 			obs.observe(document.body, { childList: true, subtree: true });
-			headerDone = setupHeader();
+			headerDone  = setupHeader();
 			workflowDone = injectWorkflow();
+			cleanupDone  = cleanupUI();
 		})();
 	</script>
 </body>
